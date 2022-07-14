@@ -1,29 +1,32 @@
 <template>
   <div class="home">
     Home
-    <p>My name is {{ name }} my age is {{ age }}</p>
+    <p>My name is {{ ninjaOne.name }} my age is {{ ninjaOne.age }}</p>
     <button @click="handleClick">Click me</button>
-    <button @click="age++">Age++</button>
-    <input type="text" v-model="name" />
+    <h1>Reactive</h1>
+    <p>{{ ninjaTwo.name }} - {{ ninjaTwo.age }}</p>
   </div>
 </template>
 
 <script>
-import { ref } from "@vue/reactivity";
+import { reactive, ref } from "@vue/reactivity";
 // @ is an alias to /src
 // disable-eslint
 
 export default {
   name: "Home",
   setup() {
-    const name = ref("Rijal");
-    const age = ref(27);
+    const ninjaOne = ref({ name: "Rijal", age: 27 });
+    const ninjaTwo = reactive({ name: "Husen", age: 47 })
 
     const handleClick = () => {
-      name.value = "Husen";
+      ninjaOne.value.age = 37;
+      // we dont ne access the .value here
+      // but we can't change the reactive when the data is primitive e.g = reactive("string")
+      ninjaTwo.age = 50;
     };
 
-    return { name, age, handleClick };
+    return { ninjaOne, ninjaTwo, handleClick };
   },
 };
 </script>
