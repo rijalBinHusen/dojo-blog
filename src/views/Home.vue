@@ -1,32 +1,29 @@
 <template>
   <div class="home">
     Home
-    <p ref="p">My name is {{ name }} my age is {{ age }}</p>
+    <p>My name is {{ name }} my age is {{ age }}</p>
     <button @click="handleClick">Click me</button>
+    <button @click="age++">Age++</button>
+    <input type="text" v-model="name" />
   </div>
 </template>
 
 <script>
-import { ref } from '@vue/reactivity';
+import { ref } from "@vue/reactivity";
 // @ is an alias to /src
+// disable-eslint
 
 export default {
   name: "Home",
   setup() {
-
-    const p = ref(null)
-
-    let name = "Rijal";
-    let age = 27;
+    const name = ref("Rijal");
+    const age = ref(27);
 
     const handleClick = () => {
-      p.value.classList.add("testt")
-      p.value.textContent = "Hello world"
-      console.log(p, p.value)
+      name.value = "Husen";
     };
 
-    return { name, age, handleClick, p }
-
+    return { name, age, handleClick };
   },
-}
+};
 </script>
