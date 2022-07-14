@@ -3,6 +3,7 @@
     Home
     <input type="text" v-model="search" />
     <p>Search item: {{ search }}</p>
+    <button @click="handleClick">Stop watching</button>
     <div v-for="name in matchingNames" :key="name">
       <p>{{ name }}</p>
     </div>
@@ -12,6 +13,7 @@
 <script>
 /* eslint-disable */ 
 import { computed, reactive, ref } from "@vue/reactivity";
+import { watch, watchEffect } from '@vue/runtime-core';
 // @ is an alias to /src
 // disable-eslint
 
@@ -25,7 +27,20 @@ export default {
       return names.value.filter((name) => name.includes(search.value))
     })
 
-    return { names, search, matchingNames };
+    const stopWatch = watch(search, () => {
+      console.log("watch function run")
+    })
+
+    const stopwatchEffect = watchEffect(() => {
+      console.log("Watch effect run", search.value)
+    })
+
+    const handleClick = () => {
+      stopWatch()
+      stopwatchEffect()
+    }
+
+    return { names, search, matchingNames, handleClick };
   },
 };
 </script>
