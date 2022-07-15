@@ -1,12 +1,7 @@
 <template>
   <div class="home">
     Home
-    <input type="text" v-model="search" />
-    <p>Search item: {{ search }}</p>
-    <button @click="handleClick">Stop watching</button>
-    <div v-for="name in matchingNames" :key="name">
-      <p>{{ name }}</p>
-    </div>
+    <PostLists :posts="posts" />
   </div>
 </template>
 
@@ -14,33 +9,20 @@
 /* eslint-disable */ 
 import { computed, reactive, ref } from "@vue/reactivity";
 import { watch, watchEffect } from '@vue/runtime-core';
+import PostLists from "../components/PostLists.vue"
 // @ is an alias to /src
 // disable-eslint
 
 export default {
   name: "Home",
+  components: { PostLists },
   setup() {
-    const search = ref('')
-    const names = ref(['mario', 'yoshi', 'rijal', 'husen', 'alula', 'aisyah'])
+    const posts = ref([
+      { title: "build a web", body: "Lorem ipsum ;lsdjfppeoirpwoirpworiwpooeirwpoerwpeooriwpeooriwpperpeorqi[qwoe1=2--30=12-301==239112p3oeep[pirwporiwoepriwpeprdjf;sdjjfsfs;fklsdfklsdkf", id: 1 },
+      { title: "build a web 2", body: "Lorem ipsum 2", id: 2 },
+    ])
 
-    const matchingNames = computed(() => {
-      return names.value.filter((name) => name.includes(search.value))
-    })
-
-    const stopWatch = watch(search, () => {
-      console.log("watch function run")
-    })
-
-    const stopwatchEffect = watchEffect(() => {
-      console.log("Watch effect run", search.value)
-    })
-
-    const handleClick = () => {
-      stopWatch()
-      stopwatchEffect()
-    }
-
-    return { names, search, matchingNames, handleClick };
+    return { posts };
   },
 };
 </script>
