@@ -1,9 +1,13 @@
 <template>
   <div class="home">
     Home
-    <button @click="showPost = !showPost">Toggle posts</button>
-    <button @click="posts.pop()">Delete a post</button>
-    <PostLists v-if="showPost" :posts="posts" />
+    <div v-if="error">
+      {{ error }}
+    </div>
+    <div v-if="posts.length">
+      <PostLists :posts="posts" />
+    </div>
+    <div v-else>Loading...</div>
   </div>
 </template>
 
@@ -12,21 +16,31 @@
 import { computed, reactive, ref } from "@vue/reactivity";
 import { watch, watchEffect } from '@vue/runtime-core';
 import PostLists from "../components/PostLists.vue"
-// @ is an alias to /src
-// disable-eslint
 
 export default {
   name: "Home",
   components: { PostLists },
   setup() {
-    const posts = ref([
-      { title: "build a web", body: "Lorem ipsum ;lsdjfppeoirpwoirpworiwpooeirwpoerwpeooriwpeooriwpperpeorqi[qwoe1=2--30=12-301==239112p3oeep[pirwporiwoepriwpeprdjf;sdjjfsfs;fklsdfklsdkf", id: 1 },
-      { title: "build a web 2", body: "Lorem ipsum 2", id: 2 },
-    ])
+    const posts = ref([])
+    const error = ref(null)
 
-    const showPost = ref(true)
+    const load = async () => {
+      try {
+        let data = await fetch("http://localhost:3000/posts")
+        if(!data.ok) {
+          throw Error("no data available")
+        }
+        posts.value = await data.json()
+      }
+      catch(err) {
+        error.value  = err.message
+        // console.log(error.value)
+      }
+    }
 
-    return { posts, showPost };
+    load()
+
+    return { posts, error };
   },
 };
 </script>
