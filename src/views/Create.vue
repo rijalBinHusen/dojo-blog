@@ -1,6 +1,6 @@
 <template>
 <div class="create">
-    <form>
+    <form @submit.prevent="handleSubmit">
         <label for="title">Title blog:</label>
         <input v-model="title" type="text" required id="title">
         <label for="content">Content blog:</label>
@@ -23,6 +23,7 @@
 <script>
 /* eslint-disable */ 
 import { ref } from '@vue/reactivity'
+import createPost from "../composables/Createpost"
 export default {
     setup() {
         const title = ref('')
@@ -39,7 +40,11 @@ export default {
             tag.value = ''
         }
 
-        return { title, body, tag, handleKeydown, tags }
+        const handleSubmit = () => {
+            createPost(title.value, body.value, tags.value)
+        }
+
+        return { title, body, tag, handleKeydown, tags, handleSubmit }
     },
 }
 </script>
