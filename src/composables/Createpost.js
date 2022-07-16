@@ -1,5 +1,5 @@
 export default function (title, body, tags) {
-  fetch("http://localhost:3000/posts", {
+  return fetch("http://localhost:3000/posts", {
     method: "POST",
     headers: { "Content-Type": "application/json " },
     body: JSON.stringify({
@@ -8,9 +8,6 @@ export default function (title, body, tags) {
       tags: tags,
     }),
   })
-    .then(() => {
-      //   this.$router.push("/");
-      alert("success");
-    })
+    .then(() => {})
     .catch((err) => console.log(err));
 }

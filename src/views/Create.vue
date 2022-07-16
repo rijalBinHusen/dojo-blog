@@ -23,7 +23,9 @@
 <script>
 /* eslint-disable */ 
 import { ref } from '@vue/reactivity'
+import { useRouter } from "vue-router"
 import createPost from "../composables/Createpost"
+
 export default {
     setup() {
         const title = ref('')
@@ -41,17 +43,13 @@ export default {
         }
 
         const handleSubmit = async () => {
-            let post = {
-                title: title.value,
-                body: body.value,
-                tags: tags.value
-            }
-            fetch("http://localhost:3000/posts", {
-                method: "POST",
-                headers: { "Content-type": "application/json" },
-                body: JSON.stringify(post)
-            })
+            await createPost(title.value, body.value, tags.value)
+            router.push({ name: "Home" })
         }
+
+        const router = useRouter()
+
+        console.log(router)
 
         return { title, body, tag, handleKeydown, tags, handleSubmit }
     },
