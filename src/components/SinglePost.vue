@@ -17,10 +17,39 @@ export default {
     props: ['post'],
     setup(props) {
         const snippet = computed(() => {
-            return props.post.body.substring(0, 5) + '....'
+            return props.post.body.substring(0, 100) + '....'
         })
 
         return { snippet }
     },
 }
 </script>
+
+
+<style scoped>
+    .post {
+        margin: 0 40px 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px dashed #e7e7e7;
+    }
+    .post h3 {
+        display: inline-block;
+        position: relative;
+        font-size: 26px;
+        color: white;
+        margin-bottom: 10px;
+        max-width: 400px;
+    }
+    .post h3::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        position:absolute;
+        background: #ff8800;
+        z-index: -1;
+        padding-right: 40px;
+        left: -30px;
+        transform: rotateZ(-1deg);
+    }
+</style>
