@@ -49,8 +49,6 @@ export default {
 
         const router = useRouter()
 
-        console.log(router)
-
         return { title, body, tag, handleKeydown, tags, handleSubmit }
     },
 }

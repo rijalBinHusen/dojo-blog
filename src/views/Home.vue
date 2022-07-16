@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    Home
     <div v-if="error">
       {{ error }}
     </div>
