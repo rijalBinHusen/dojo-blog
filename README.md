@@ -6,7 +6,7 @@
 ![Home blog](src/assets/blogHome.png)
 
 ### Create blog
-![Create blog](src/assets/blogcreate.png.png)
+![Create blog](src/assets/blogcreate.png)
 
 ### View blog
 ![Details blog](src/assets/blogdetails.png)
