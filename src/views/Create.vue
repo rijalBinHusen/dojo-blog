@@ -25,6 +25,7 @@
 import { ref } from '@vue/reactivity'
 import { useRouter } from "vue-router"
 import createPost from "../composables/Createpost"
+import { timestamp } from '../firebase/firebaseApp'
 
 export default {
     setup() {
@@ -44,7 +45,12 @@ export default {
 
         const handleSubmit = async () => {
             router.push({ name: "Home" })
-            await createPost({ title: title.value, body: body.value, tags: tags.value })
+            await createPost({ 
+              title: title.value, 
+              body: body.value, 
+              tags: tags.value,
+              createdAt: timestamp(),
+            })
         }
 
         const router = useRouter()
