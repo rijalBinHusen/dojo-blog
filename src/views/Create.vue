@@ -43,8 +43,8 @@ export default {
         }
 
         const handleSubmit = async () => {
-            await createPost(title.value, body.value, tags.value)
             router.push({ name: "Home" })
+            await createPost({ title: title.value, body: body.value, tags: tags.value })
         }
 
         const router = useRouter()

@@ -1,13 +1,9 @@
-export default function (title, body, tags) {
-  return fetch("http://localhost:3000/posts", {
-    method: "POST",
-    headers: { "Content-Type": "application/json " },
-    body: JSON.stringify({
-      title: title,
-      body: body,
-      tags: tags,
-    }),
-  })
-    .then(() => {})
+import { projectFirestore } from "../firebase/firebaseApp";
+
+export default function (obj) {
+  return projectFirestore
+    .collection("posts")
+    .add(obj)
+    .then()
     .catch((err) => console.log(err));
 }
