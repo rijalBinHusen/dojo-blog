@@ -1,6 +1,6 @@
+import firebaseConfig from "./config";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { firebaseConfig } from "./config";
 
 // init firebase
 firebase.initializeApp(firebaseConfig);
@@ -8,4 +8,5 @@ firebase.initializeApp(firebaseConfig);
 // init firestore service
 const projectFirestore = firebase.firestore();
 
+// export firestore
 export { projectFirestore };
